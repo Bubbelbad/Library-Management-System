@@ -1,4 +1,4 @@
-﻿using Application.Commands.AuthorCommands.AddAuthor;
+﻿using Application.Commands.AuthorCommands.Add;
 using Application.Dtos;
 using Application.Interfaces.RepositoryInterfaces;
 using AutoMapper;
@@ -16,13 +16,13 @@ namespace TestProject.AuthorIntegrationTests
     [Category("Author/Integration/AddAuthor")]
     public class AddAuthorIntegrationTest
     {
-        private AddAuthorCommandHandler _handler;
-        private RealDatabase _database;
+        private readonly AddAuthorCommandHandler _handler;
+        private DatabaseContext _database;
         private IGenericRepository<Author, Guid> _repository;
         private IMapper _mapper;
         private IMediator _mediator;
 
-        private static readonly Guid ExampleAuthorId = new Guid("12345678-1234-1234-1234-1234567890ab");
+        private static readonly Guid ExampleAuthorId = new("12345678-1234-1234-1234-1234567890ab");
 
         [SetUp]
         public void Setup()
@@ -30,10 +30,10 @@ namespace TestProject.AuthorIntegrationTests
             var services = new ServiceCollection();
 
             // Set up in-memory database
-            var options = new DbContextOptionsBuilder<RealDatabase>()
+            var options = new DbContextOptionsBuilder<DatabaseContext>()
                 .UseInMemoryDatabase(databaseName: "TestDatabase")
                 .Options;
-            _database = new RealDatabase(options);
+            _database = new DatabaseContext(options);
 
             // Initialize the repository with the in-memory database
             _repository = new GenericRepository<Author, Guid>(_database);

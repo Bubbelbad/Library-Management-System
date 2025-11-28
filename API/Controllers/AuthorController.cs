@@ -1,4 +1,4 @@
-﻿using Application.Commands.AuthorCommands.AddAuthor;
+﻿using Application.Commands.AuthorCommands.Add;
 using Application.Commands.AuthorCommands.DeleteAuthor;
 using Application.Commands.AuthorCommands.UpdateAuthor;
 using Application.Dtos;

@@ -9,10 +9,10 @@ namespace Infrastructure.Repositories
 {
     public class GenericRepository<T, TKey> : IGenericRepository<T, TKey> where T : class, IEntity<TKey>
     {
-        private readonly RealDatabase _realDatabase;
+        private readonly DatabaseContext _realDatabase;
         private readonly DbSet<T> _dbSet;
 
-        public GenericRepository(RealDatabase database)
+        public GenericRepository(DatabaseContext database)
         {
             _realDatabase = database;
             _dbSet = _realDatabase.Set<T>();

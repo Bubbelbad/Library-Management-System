@@ -14,7 +14,7 @@ namespace TestProject.AuthorIntegrationTests
     public class DeleteAuthorIntegrationTests
     {
         private DeleteAuthorCommandHandler _handler;
-        private RealDatabase _database;
+        private DatabaseContext _database;
         private IGenericRepository<Author, Guid> _repository;
         private IMapper _mapper;
 
@@ -24,10 +24,10 @@ namespace TestProject.AuthorIntegrationTests
         public void Setup()
         {
             // Set up in-memory database
-            var options = new DbContextOptionsBuilder<RealDatabase>()
+            var options = new DbContextOptionsBuilder<DatabaseContext>()
                 .UseInMemoryDatabase(databaseName: "TestDatabase")
                 .Options;
-            _database = new RealDatabase(options);
+            _database = new DatabaseContext(options);
 
             // Initialize the repository with the in-memory database
             _repository = new GenericRepository<Author, Guid>(_database);

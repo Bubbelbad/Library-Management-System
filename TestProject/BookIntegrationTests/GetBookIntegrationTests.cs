@@ -14,7 +14,7 @@ namespace TestProject.BookIntegrationTests
     public class GetBookIntegrationTests
     {
         private GetBookByIdQueryHandler _handler;
-        private RealDatabase _database;
+        private DatabaseContext _database;
         private IGenericRepository<Book, Guid> _repository;
         private IMapper _mapper;
 
@@ -24,10 +24,10 @@ namespace TestProject.BookIntegrationTests
         public void Setup()
         {
             // Set up in-memory database
-            var options = new DbContextOptionsBuilder<RealDatabase>()
+            var options = new DbContextOptionsBuilder<DatabaseContext>()
                 .UseInMemoryDatabase(databaseName: "TestDatabase")
                 .Options;
-            _database = new RealDatabase(options);
+            _database = new DatabaseContext(options);
 
             // Initialize the repository with the in-memory database
             _repository = new GenericRepository<Book, Guid>(_database); // Use a concrete implementation
@@ -75,7 +75,6 @@ namespace TestProject.BookIntegrationTests
             var result = await _handler.Handle(query, CancellationToken.None);
 
             // Assert
-            Assert.NotNull(result);
             Assert.That(result.IsSuccess, Is.True);
             Assert.That(result.Data.BookId, Is.EqualTo(ExampleBookId));
         }

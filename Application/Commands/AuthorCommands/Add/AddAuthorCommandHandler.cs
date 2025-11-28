@@ -4,7 +4,7 @@ using AutoMapper;
 using Domain.Entities.Core;
 using MediatR;
 
-namespace Application.Commands.AuthorCommands.AddAuthor
+namespace Application.Commands.AuthorCommands.Add
 {
     public class AddAuthorCommandHandler(IGenericRepository<Author, Guid> repository, IMapper mapper) : IRequestHandler<AddAuthorCommand, OperationResult<Author>>
     {

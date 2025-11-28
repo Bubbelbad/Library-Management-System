@@ -16,7 +16,7 @@ namespace TestProject.BookIntegrationTests
     internal class DeleteBookIntegrationTests
     {
         private DeleteBookCommandHandler _handler;
-        private RealDatabase _database;
+        private DatabaseContext _database;
         private IMapper _mapper;
         private IGenericRepository<Book, Guid> _repository;
 
@@ -26,10 +26,10 @@ namespace TestProject.BookIntegrationTests
         public void Setup()
         {
             // Set up in-memory database
-            var options = new DbContextOptionsBuilder<RealDatabase>()
+            var options = new DbContextOptionsBuilder<DatabaseContext>()
                 .UseInMemoryDatabase(databaseName: "TestDatabase")
                 .Options;
-            _database = new RealDatabase(options);
+            _database = new DatabaseContext(options);
 
             // Initialize the repository with the in-memory database
             _repository = new GenericRepository<Book, Guid>(_database);

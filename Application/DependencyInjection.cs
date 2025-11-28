@@ -5,7 +5,7 @@ using Application.Services.PasswordEncryption;
 using Application.Mappings;
 using MediatR;
 using FluentValidation.AspNetCore;
-using Application.Commands.AuthorCommands.AddAuthor;
+using Application.Commands.AuthorCommands.Add;
 using FluentValidation;
 
 namespace Application
