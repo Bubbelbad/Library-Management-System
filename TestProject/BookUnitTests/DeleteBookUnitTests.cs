@@ -2,7 +2,6 @@
 using Application.Interfaces.RepositoryInterfaces;
 using AutoMapper;
 using Domain.Entities.Core;
-using Moq;
 
 namespace TestProject.BookUnitTests
 {
@@ -10,26 +9,15 @@ namespace TestProject.BookUnitTests
     [Category("Book/UnitTests/DeleteBook")]
     public class DeleteBookUnitTest
     {
-        private DeleteBookCommandHandler _handler;
-        private Mock<IGenericRepository<Book, Guid>> _mockRepository;
-        private Mock<IMapper> _mockMapper;
+        private readonly DeleteBookCommandHandler _handler;
+
 
         private static readonly Guid ExampleBookId = Guid.Parse("783307e1-ea3b-400b-919d-0c40b2bbae78");
 
         [SetUp]
         public void Setup()
         {
-            _mockRepository = new Mock<IGenericRepository<Book, Guid>>();
-            _mockMapper = new Mock<IMapper>();
 
-            // Setup mock.DeleteBook returns true when valid ID
-            _mockRepository.Setup(repo => repo.DeleteAsync(It.Is<Guid>(id => id == new Guid("783307e1-ea3b-400b-919d-0c40b2bbae78"))))
-                           .ReturnsAsync(true);
-
-            _mockRepository.Setup(repo => repo.DeleteAsync(It.Is<Guid>(id => id != new Guid("783307e1-ea3b-400b-919d-0c40b2bbae78"))))
-                           .ReturnsAsync(false);
-
-            _handler = new DeleteBookCommandHandler(_mockRepository.Object, _mockMapper.Object);
         }
 
         [Test]

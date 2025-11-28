@@ -1,4 +1,4 @@
-﻿using Application.Commands.AuthorCommands.AddAuthor;
+﻿using Application.Commands.AuthorCommands.Add;
 using Application.Commands.AuthorCommands.UpdateAuthor;
 using Application.Dtos;
 using Application.Dtos.AuthorDtos;
@@ -19,7 +19,7 @@ namespace TestProject.AuthorIntegrationTests
     [Category("Author/Integration/UpdateAuthor")]
     public class UpdateAuthorIntegrationTests
     {
-        private RealDatabase _database;
+        private DatabaseContext _database;
         private IGenericRepository<Author, Guid> _repository;
         private IMapper _mapper;
         private IMediator _mediator;
@@ -40,10 +40,10 @@ namespace TestProject.AuthorIntegrationTests
             var services = new ServiceCollection();
 
             // Set up in-memory database
-            var options = new DbContextOptionsBuilder<RealDatabase>()
+            var options = new DbContextOptionsBuilder<DatabaseContext>()
                 .UseInMemoryDatabase(databaseName: "TestDatabase")
                 .Options;
-            _database = new RealDatabase(options);
+            _database = new DatabaseContext(options);
 
             // Initialize the repository with the in-memory database
             _repository = new GenericRepository<Author, Guid>(_database);

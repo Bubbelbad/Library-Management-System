@@ -1,4 +1,4 @@
-﻿using Application.Commands.AuthorCommands.AddAuthor;
+﻿using Application.Commands.AuthorCommands.Add;
 using Application.Commands.GenreCommands.AddGenre;
 using Application.Commands.GenreCommands.DeleteGenre;
 using Application.Commands.GenreCommands.UpdateGenre;

@@ -6,9 +6,9 @@ namespace Infrastructure.Repositories
 {
     public class UserRepository : GenericRepository<User, string>, IUserRepository
     {
-        private readonly RealDatabase _realDatabase;
+        private readonly DatabaseContext _realDatabase;
 
-        public UserRepository(RealDatabase database) : base(database)
+        public UserRepository(DatabaseContext database) : base(database)
         {
             _realDatabase = database;
         }

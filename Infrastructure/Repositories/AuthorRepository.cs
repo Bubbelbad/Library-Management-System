@@ -6,9 +6,9 @@ namespace Infrastructure.Repositories
 {
     public class AuthorRepository : GenericRepository<Author, Guid>, IAuthorRepository
     {
-        private readonly RealDatabase _realDatabase;
+        private readonly DatabaseContext _realDatabase;
 
-        public AuthorRepository(RealDatabase database) : base(database)
+        public AuthorRepository(DatabaseContext database) : base(database)
         {
             _realDatabase = database;
         }

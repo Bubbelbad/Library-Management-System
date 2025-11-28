@@ -13,7 +13,7 @@ namespace Infrastructure
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, string connectionString)
 
         {
-            services.AddDbContext<RealDatabase>(options =>
+            services.AddDbContext<DatabaseContext>(options =>
             {
                 options.UseSqlServer(connectionString);
             });
@@ -23,7 +23,7 @@ namespace Infrastructure
 
             services.AddIdentityCore<User>()
                     .AddRoles<IdentityRole>()
-                    .AddEntityFrameworkStores<RealDatabase>();
+                    .AddEntityFrameworkStores<DatabaseContext>();
 
             return services;
         }

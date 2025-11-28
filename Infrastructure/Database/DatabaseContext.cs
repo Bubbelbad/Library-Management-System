@@ -8,9 +8,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Database
 {
-    public class RealDatabase : IdentityDbContext<User, IdentityRole, string>
+    public class DatabaseContext : IdentityDbContext<User, IdentityRole, string>
     {
-        public RealDatabase(DbContextOptions<RealDatabase> options) : base(options) { }
+        public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options) { }
 
         public DbSet<Author> Authors { get; set; }
         public DbSet<Book> Books { get; set; }
@@ -111,6 +111,5 @@ namespace Infrastructure.Database
                 .Property(r => r.Id)
                 .ValueGeneratedOnAdd();
         }
-
     }
 }

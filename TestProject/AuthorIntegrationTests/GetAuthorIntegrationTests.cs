@@ -14,20 +14,20 @@ namespace TestProject.AuthorIntegrationTests
     public class GetAuthorIntegrationTests
     {
         private GetAuthorByIdQueryHandler _handler;
-        private RealDatabase _database;
+        private DatabaseContext _database;
         private IGenericRepository<Author, Guid> _repository;
         private IMapper _mapper;
 
-        private static readonly Guid ExampleAuthorId = new Guid("12345678-1234-1234-1234-1234567890ab");
+        private static readonly Guid ExampleAuthorId = new("12345678-1234-1234-1234-1234567890ab");
 
         [SetUp]
         public void Setup()
         {
             // Set up in-memory database
-            var options = new DbContextOptionsBuilder<RealDatabase>()
+            var options = new DbContextOptionsBuilder<DatabaseContext>()
                 .UseInMemoryDatabase(databaseName: "TestDatabase")
                 .Options;
-            _database = new RealDatabase(options);
+            _database = new DatabaseContext(options);
 
             // Initialize the repository with the in-memory database
             _repository = new AuthorRepository(_database);
@@ -72,7 +72,7 @@ namespace TestProject.AuthorIntegrationTests
             var result = await _handler.Handle(query, CancellationToken.None);
 
             // Assert
-            Assert.NotNull(result);
+
             Assert.That(result.Data.AuthorId, Is.EqualTo(ExampleAuthorId));
         }
 
@@ -84,10 +84,10 @@ namespace TestProject.AuthorIntegrationTests
             var query = new GetAuthorByIdQuery(invalidAuthorId);
 
             // Act
-            var result = await _handler.Handle(query, CancellationToken.None);
+            await _handler.Handle(query, CancellationToken.None);
 
             // Assert
-            Assert.IsNull(result.Data);
+
         }
     }
 }

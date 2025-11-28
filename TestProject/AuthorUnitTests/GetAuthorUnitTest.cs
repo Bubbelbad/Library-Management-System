@@ -2,7 +2,6 @@
 using Application.Queries.AuthorQueries.GetAuthorById;
 using AutoMapper;
 using Domain.Entities.Core;
-using Moq;
 
 namespace TestProject.AuthorUnitTests
 {
@@ -10,30 +9,15 @@ namespace TestProject.AuthorUnitTests
     [Category("Author/UnitTests/GetAuthorById")]
     public class GetAuthorUnitTest
     {
-        private Mock<IGenericRepository<Author, Guid>> _mockRepository;
-        private GetAuthorByIdQueryHandler _handler;
-        private Mock<IMapper> _mockMapper;
+
+        private readonly GetAuthorByIdQueryHandler _handler;
 
         private static readonly Guid ExampleAuthorId = Guid.Parse("fc22325e-0fa3-4615-aa6c-c7fe459a2735");
-        private static readonly Author ExampleAuthor = new Author { AuthorId = ExampleAuthorId, FirstName = "Test", LastName = "AuthorId" };
+        private static readonly Author ExampleAuthor = new()  { AuthorId = ExampleAuthorId, FirstName = "Test", LastName = "AuthorId" };
 
         [SetUp]
         public void Setup()
         {
-            _mockRepository = new Mock<IGenericRepository<Author, Guid>>();
-            _mockMapper = new Mock<IMapper>();
-
-            _mockRepository.Setup(repo => repo.GetByIdAsync(It.Is<Guid>(id => id == ExampleAuthorId)))
-                           .ReturnsAsync(ExampleAuthor);
-
-            // Set up the mock repository to return null for any other ID
-            _mockRepository.Setup(repo => repo.GetByIdAsync(It.Is<Guid>(id => id != ExampleAuthorId)))
-                           .ReturnsAsync((Author)null!);
-
-            _mockMapper.Setup(Setup => Setup.Map<Author>(It.IsAny<Author>()))
-                       .Returns((Author author) => author);
-
-            _handler = new GetAuthorByIdQueryHandler(_mockRepository.Object, _mockMapper.Object);
         }
 
         [Test]

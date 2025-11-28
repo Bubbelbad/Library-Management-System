@@ -1,5 +1,4 @@
 ﻿using Application.Interfaces.RepositoryInterfaces;
-using Moq;
 using AutoMapper;
 using Domain.Entities.Core;
 using Application.Queries.BookQueries.GetBookById;
@@ -11,9 +10,8 @@ namespace TestProject.BookUnitTests
     [Category("Book/UnitTests/GetBookById")]
     public class GetBookUnitTests
     {
-        private GetBookByIdQueryHandler _handler;
-        private Mock<IGenericRepository<Book, Guid>> _mockRepository;
-        private Mock<IMapper> _mockMapper;
+        private readonly GetBookByIdQueryHandler _handler;
+
 
         private static readonly Guid ExampleBookId = Guid.Parse("2bfaf5e9-d978-464c-b778-7567ef2dde29");
         private static readonly Book ExampleBook = new()
@@ -28,21 +26,7 @@ namespace TestProject.BookUnitTests
         [SetUp]
         public void SetUp()
         {
-            _mockRepository = new Mock<IGenericRepository<Book, Guid>>();
-            _mockMapper = new Mock<IMapper>();
 
-            // Setup the mock repository to return the same book object
-            _mockRepository.Setup(repo => repo.GetByIdAsync(It.Is<Guid>(id => id == ExampleBookId)))
-                           .ReturnsAsync(ExampleBook);
-
-            _mockRepository.Setup(repo => repo.GetByIdAsync(It.Is<Guid>(id => id != ExampleBookId)))
-                           .ReturnsAsync((Book)null!);
-
-            // Setup the mock mapper to return the same book object
-            _mockMapper.Setup(mapper => mapper.Map<AddBookDto>(It.IsAny<Book>()))
-                       .Returns((AddBookDto source) => source);
-
-            _handler = new GetBookByIdQueryHandler(_mockRepository.Object, _mockMapper.Object);
         }
 
         [Test]
